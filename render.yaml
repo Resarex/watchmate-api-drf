@@ -5,7 +5,7 @@ services:
     region: oregon
     plan: free
     buildCommand: bash watchmate/build.sh
-    startCommand: cd watchmate && gunicorn watchmate.wsgi:application
+    startCommand: cd watchmate && gunicorn watchmate.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: SECRET_KEY
         generateValue: true
