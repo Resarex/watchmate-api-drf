@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from watchlist.models import Genre, StreamPlatform, WatchList
+from watchlist.models import Credit, Genre, Person, StreamPlatform, WatchList
 
 
 PLATFORMS = [
@@ -68,7 +68,7 @@ MOVIES = [
     },
     {
         'title': 'Interstellar',
-        'storyline': 'A team of explorers travel through a wormhole in space to ensure humanity\'s survival.',
+        'storyline': "A team of explorers travel through a wormhole in space to ensure humanity's survival.",
         'platform': 'Amazon Prime Video',
         'genres': ['Sci-Fi', 'Drama', 'Adventure'],
         'release_year': 2014,
@@ -103,7 +103,7 @@ MOVIES = [
         'genres': ['Crime', 'Drama'],
         'release_year': 1972,
         'duration': 175,
-        'poster': 'https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsLegHnDmni1B.jpg',
+        'poster': 'https://image.tmdb.org/t/p/w500/wWJbBo5yjw22AIjE8isBFoiBI3S.jpg',
         'trailer_url': 'https://www.youtube.com/watch?v=sY1S34973zA',
     },
     {
@@ -138,7 +138,7 @@ MOVIES = [
     },
     {
         'title': 'Avengers: Endgame',
-        'storyline': 'The Avengers assemble once more to reverse Thanos\'s actions and restore balance to the universe.',
+        'storyline': "The Avengers assemble once more to reverse Thanos's actions and restore balance to the universe.",
         'platform': 'Disney+',
         'genres': ['Action', 'Adventure', 'Sci-Fi'],
         'release_year': 2019,
@@ -173,7 +173,7 @@ MOVIES = [
         'genres': ['Horror', 'Thriller', 'Crime'],
         'release_year': 1991,
         'duration': 118,
-        'poster': 'https://image.tmdb.org/t/p/w500/rplLJ2hPcOQmkFhTqUte0MkosOe.jpg',
+        'poster': 'https://image.tmdb.org/t/p/w500/uS9m8OBk1A8eM9I042bx8XXpqAq.jpg',
         'trailer_url': 'https://www.youtube.com/watch?v=6iB21hailEc',
     },
     {
@@ -198,17 +198,17 @@ MOVIES = [
     },
     {
         'title': 'The Lion King',
-        'storyline': 'A young lion prince flees his kingdom after his father\'s murder and must reclaim his throne.',
+        'storyline': "A young lion prince flees his kingdom after his father's murder and must reclaim his throne.",
         'platform': 'Disney+',
         'genres': ['Animation', 'Adventure', 'Drama'],
         'release_year': 1994,
         'duration': 88,
-        'poster': 'https://image.tmdb.org/t/p/w500/sKCr78MXSuC27BpF4HHFxKMxnkp.jpg',
+        'poster': 'https://image.tmdb.org/t/p/w500/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg',
         'trailer_url': 'https://www.youtube.com/watch?v=4sj1MT05lAA',
     },
     {
         'title': 'Spider-Man: No Way Home',
-        'storyline': 'Spider-Man asks Doctor Strange for help after his identity is revealed, unleashing the multiverse.',
+        'storyline': "Spider-Man asks Doctor Strange for help after his identity is revealed, unleashing the multiverse.",
         'platform': 'Netflix',
         'genres': ['Action', 'Adventure', 'Sci-Fi'],
         'release_year': 2021,
@@ -218,22 +218,22 @@ MOVIES = [
     },
     {
         'title': 'Dune',
-        'storyline': 'A noble family becomes embroiled in a war for control of the universe\'s most valuable asset.',
+        'storyline': "A noble family becomes embroiled in a war for control of the universe's most valuable asset.",
         'platform': 'HBO Max',
         'genres': ['Sci-Fi', 'Adventure', 'Drama'],
         'release_year': 2021,
         'duration': 155,
-        'poster': 'https://image.tmdb.org/t/p/w500/d5NXSklpcvksHi3nXBCTIJNFhBs.jpg',
+        'poster': 'https://image.tmdb.org/t/p/w500/pc15b0pi8o1oUv9vNhakwMQ9TxA.jpg',
         'trailer_url': 'https://www.youtube.com/watch?v=n9xhJrPXop4',
     },
     {
         'title': 'The Batman',
-        'storyline': 'Batman ventures into Gotham\'s underworld to unmask the Riddler, a sadistic serial killer.',
+        'storyline': "Batman ventures into Gotham's underworld to unmask the Riddler, a sadistic serial killer.",
         'platform': 'HBO Max',
         'genres': ['Action', 'Crime', 'Mystery'],
         'release_year': 2022,
         'duration': 176,
-        'poster': 'https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpocon6I4AkyrRYv.jpg',
+        'poster': 'https://image.tmdb.org/t/p/w500/djCPA8NYhhsDT1DVTViOgH4INqY.jpg',
         'trailer_url': 'https://www.youtube.com/watch?v=mqqft2x_Aa4',
     },
     {
@@ -248,14 +248,200 @@ MOVIES = [
     },
 ]
 
+CAST = [
+    {
+        'movie': 'The Dark Knight',
+        'credits': [
+            {'name': 'Christopher Nolan', 'role': 'director', 'character_name': '', 'order': 0},
+            {'name': 'Christian Bale',    'role': 'actor',    'character_name': 'Bruce Wayne / Batman', 'order': 1},
+            {'name': 'Heath Ledger',      'role': 'actor',    'character_name': 'Joker',                'order': 2},
+            {'name': 'Aaron Eckhart',     'role': 'actor',    'character_name': 'Harvey Dent',          'order': 3},
+        ],
+    },
+    {
+        'movie': 'Inception',
+        'credits': [
+            {'name': 'Christopher Nolan',       'role': 'director', 'character_name': '',        'order': 0},
+            {'name': 'Leonardo DiCaprio',        'role': 'actor',    'character_name': 'Dom Cobb', 'order': 1},
+            {'name': 'Joseph Gordon-Levitt',     'role': 'actor',    'character_name': 'Arthur',  'order': 2},
+            {'name': 'Elliot Page',              'role': 'actor',    'character_name': 'Ariadne', 'order': 3},
+        ],
+    },
+    {
+        'movie': 'Interstellar',
+        'credits': [
+            {'name': 'Christopher Nolan',   'role': 'director', 'character_name': '',         'order': 0},
+            {'name': 'Matthew McConaughey', 'role': 'actor',    'character_name': 'Cooper',   'order': 1},
+            {'name': 'Anne Hathaway',       'role': 'actor',    'character_name': 'Brand',    'order': 2},
+            {'name': 'Jessica Chastain',    'role': 'actor',    'character_name': 'Murph',    'order': 3},
+        ],
+    },
+    {
+        'movie': 'The Shawshank Redemption',
+        'credits': [
+            {'name': 'Frank Darabont', 'role': 'director', 'character_name': '',            'order': 0},
+            {'name': 'Tim Robbins',    'role': 'actor',    'character_name': 'Andy Dufresne', 'order': 1},
+            {'name': 'Morgan Freeman', 'role': 'actor',    'character_name': 'Red',           'order': 2},
+        ],
+    },
+    {
+        'movie': 'Pulp Fiction',
+        'credits': [
+            {'name': 'Quentin Tarantino',  'role': 'director', 'character_name': '',              'order': 0},
+            {'name': 'John Travolta',      'role': 'actor',    'character_name': 'Vincent Vega',   'order': 1},
+            {'name': 'Samuel L. Jackson',  'role': 'actor',    'character_name': 'Jules Winnfield', 'order': 2},
+            {'name': 'Uma Thurman',        'role': 'actor',    'character_name': 'Mia Wallace',     'order': 3},
+        ],
+    },
+    {
+        'movie': 'The Godfather',
+        'credits': [
+            {'name': 'Francis Ford Coppola', 'role': 'director', 'character_name': '',                  'order': 0},
+            {'name': 'Marlon Brando',         'role': 'actor',    'character_name': 'Don Vito Corleone', 'order': 1},
+            {'name': 'Al Pacino',             'role': 'actor',    'character_name': 'Michael Corleone',  'order': 2},
+            {'name': 'James Caan',            'role': 'actor',    'character_name': 'Sonny Corleone',    'order': 3},
+        ],
+    },
+    {
+        'movie': 'Fight Club',
+        'credits': [
+            {'name': 'David Fincher',       'role': 'director', 'character_name': '',             'order': 0},
+            {'name': 'Brad Pitt',           'role': 'actor',    'character_name': 'Tyler Durden',  'order': 1},
+            {'name': 'Edward Norton',       'role': 'actor',    'character_name': 'The Narrator',  'order': 2},
+            {'name': 'Helena Bonham Carter','role': 'actor',    'character_name': 'Marla Singer',  'order': 3},
+        ],
+    },
+    {
+        'movie': 'Forrest Gump',
+        'credits': [
+            {'name': 'Robert Zemeckis', 'role': 'director', 'character_name': '',           'order': 0},
+            {'name': 'Tom Hanks',       'role': 'actor',    'character_name': 'Forrest Gump', 'order': 1},
+            {'name': 'Robin Wright',    'role': 'actor',    'character_name': 'Jenny',        'order': 2},
+            {'name': 'Gary Sinise',     'role': 'actor',    'character_name': 'Lt. Dan',      'order': 3},
+        ],
+    },
+    {
+        'movie': 'The Matrix',
+        'credits': [
+            {'name': 'Lana Wachowski',    'role': 'director', 'character_name': '',      'order': 0},
+            {'name': 'Lilly Wachowski',   'role': 'director', 'character_name': '',      'order': 1},
+            {'name': 'Keanu Reeves',      'role': 'actor',    'character_name': 'Neo',   'order': 2},
+            {'name': 'Laurence Fishburne','role': 'actor',    'character_name': 'Morpheus', 'order': 3},
+            {'name': 'Carrie-Anne Moss',  'role': 'actor',    'character_name': 'Trinity', 'order': 4},
+        ],
+    },
+    {
+        'movie': 'Avengers: Endgame',
+        'credits': [
+            {'name': 'Anthony Russo',       'role': 'director', 'character_name': '',                    'order': 0},
+            {'name': 'Joe Russo',           'role': 'director', 'character_name': '',                    'order': 1},
+            {'name': 'Robert Downey Jr.',   'role': 'actor',    'character_name': 'Tony Stark / Iron Man', 'order': 2},
+            {'name': 'Chris Evans',         'role': 'actor',    'character_name': 'Steve Rogers / Captain America', 'order': 3},
+            {'name': 'Scarlett Johansson',  'role': 'actor',    'character_name': 'Natasha Romanoff',    'order': 4},
+        ],
+    },
+    {
+        'movie': 'Parasite',
+        'credits': [
+            {'name': 'Bong Joon-ho',    'role': 'director', 'character_name': '',             'order': 0},
+            {'name': 'Song Kang-ho',    'role': 'actor',    'character_name': 'Ki-taek',       'order': 1},
+            {'name': 'Lee Sun-kyun',    'role': 'actor',    'character_name': 'Park Dong-ik',  'order': 2},
+            {'name': 'Cho Yeo-jeong',   'role': 'actor',    'character_name': 'Yeon-gyo',      'order': 3},
+        ],
+    },
+    {
+        'movie': 'Joker',
+        'credits': [
+            {'name': 'Todd Phillips',   'role': 'director', 'character_name': '',                      'order': 0},
+            {'name': 'Joaquin Phoenix', 'role': 'actor',    'character_name': 'Arthur Fleck / Joker',  'order': 1},
+            {'name': 'Robert De Niro',  'role': 'actor',    'character_name': 'Murray Franklin',       'order': 2},
+            {'name': 'Zazie Beetz',     'role': 'actor',    'character_name': 'Sophie Dumond',         'order': 3},
+        ],
+    },
+    {
+        'movie': 'The Silence of the Lambs',
+        'credits': [
+            {'name': 'Jonathan Demme',   'role': 'director', 'character_name': '',                  'order': 0},
+            {'name': 'Jodie Foster',     'role': 'actor',    'character_name': 'Clarice Starling',  'order': 1},
+            {'name': 'Anthony Hopkins',  'role': 'actor',    'character_name': 'Hannibal Lecter',   'order': 2},
+        ],
+    },
+    {
+        'movie': 'Goodfellas',
+        'credits': [
+            {'name': 'Martin Scorsese', 'role': 'director', 'character_name': '',              'order': 0},
+            {'name': 'Ray Liotta',      'role': 'actor',    'character_name': 'Henry Hill',    'order': 1},
+            {'name': 'Robert De Niro',  'role': 'actor',    'character_name': 'Jimmy Conway',  'order': 2},
+            {'name': 'Joe Pesci',       'role': 'actor',    'character_name': 'Tommy DeVito',  'order': 3},
+        ],
+    },
+    {
+        'movie': "Schindler's List",
+        'credits': [
+            {'name': 'Steven Spielberg', 'role': 'director', 'character_name': '',                  'order': 0},
+            {'name': 'Liam Neeson',      'role': 'actor',    'character_name': 'Oskar Schindler',   'order': 1},
+            {'name': 'Ben Kingsley',     'role': 'actor',    'character_name': 'Itzhak Stern',      'order': 2},
+            {'name': 'Ralph Fiennes',    'role': 'actor',    'character_name': 'Amon Goeth',        'order': 3},
+        ],
+    },
+    {
+        'movie': 'The Lion King',
+        'credits': [
+            {'name': 'Roger Allers',    'role': 'director', 'character_name': '',       'order': 0},
+            {'name': 'Rob Minkoff',     'role': 'director', 'character_name': '',       'order': 1},
+            {'name': 'Matthew Broderick','role': 'actor',   'character_name': 'Simba',  'order': 2},
+            {'name': 'Jeremy Irons',    'role': 'actor',    'character_name': 'Scar',   'order': 3},
+            {'name': 'James Earl Jones','role': 'actor',    'character_name': 'Mufasa', 'order': 4},
+        ],
+    },
+    {
+        'movie': 'Spider-Man: No Way Home',
+        'credits': [
+            {'name': 'Jon Watts',               'role': 'director', 'character_name': '',                    'order': 0},
+            {'name': 'Tom Holland',             'role': 'actor',    'character_name': 'Peter Parker / Spider-Man', 'order': 1},
+            {'name': 'Zendaya',                 'role': 'actor',    'character_name': 'MJ',                  'order': 2},
+            {'name': 'Benedict Cumberbatch',    'role': 'actor',    'character_name': 'Doctor Strange',      'order': 3},
+        ],
+    },
+    {
+        'movie': 'Dune',
+        'credits': [
+            {'name': 'Denis Villeneuve',  'role': 'director', 'character_name': '',               'order': 0},
+            {'name': 'Timothee Chalamet', 'role': 'actor',    'character_name': 'Paul Atreides',  'order': 1},
+            {'name': 'Rebecca Ferguson',  'role': 'actor',    'character_name': 'Lady Jessica',   'order': 2},
+            {'name': 'Oscar Isaac',       'role': 'actor',    'character_name': 'Duke Leto',       'order': 3},
+        ],
+    },
+    {
+        'movie': 'The Batman',
+        'credits': [
+            {'name': 'Matt Reeves',      'role': 'director', 'character_name': '',                        'order': 0},
+            {'name': 'Robert Pattinson', 'role': 'actor',    'character_name': 'Bruce Wayne / Batman',    'order': 1},
+            {'name': 'Zoe Kravitz',      'role': 'actor',    'character_name': 'Selina Kyle / Catwoman',  'order': 2},
+            {'name': 'Paul Dano',        'role': 'actor',    'character_name': 'The Riddler',             'order': 3},
+        ],
+    },
+    {
+        'movie': 'Everything Everywhere',
+        'credits': [
+            {'name': 'Daniel Kwan',      'role': 'director', 'character_name': '',                       'order': 0},
+            {'name': 'Daniel Scheinert', 'role': 'director', 'character_name': '',                       'order': 1},
+            {'name': 'Michelle Yeoh',    'role': 'actor',    'character_name': 'Evelyn Wang',             'order': 2},
+            {'name': 'Ke Huy Quan',      'role': 'actor',    'character_name': 'Waymond Wang',            'order': 3},
+            {'name': 'Jamie Lee Curtis', 'role': 'actor',    'character_name': 'Deirdre Beaubeirdre',     'order': 4},
+        ],
+    },
+]
+
 
 class Command(BaseCommand):
-    help = 'Seeds the database with platforms, genres, and movies'
+    help = 'Seeds the database with platforms, genres, movies, and cast'
 
     def handle(self, *args, **options):
         self._seed_platforms()
         self._seed_genres()
         self._seed_movies()
+        self._seed_cast()
         self.stdout.write(self.style.SUCCESS('Database seeded successfully!'))
 
     def _seed_platforms(self):
@@ -281,10 +467,12 @@ class Command(BaseCommand):
             try:
                 platform = StreamPlatform.objects.get(name=data['platform'])
             except StreamPlatform.DoesNotExist:
-                self.stdout.write(self.style.WARNING(f'  Platform not found: {data["platform"]}, skipping {data["title"]}'))
+                self.stdout.write(self.style.WARNING(
+                    f'  Platform not found: {data["platform"]}, skipping {data["title"]}'
+                ))
                 continue
 
-            movie, created = WatchList.objects.get_or_create(
+            movie, created = WatchList.objects.update_or_create(
                 title=data['title'],
                 defaults={
                     'storyline': data['storyline'],
@@ -297,7 +485,30 @@ class Command(BaseCommand):
                 }
             )
 
+            genres = Genre.objects.filter(name__in=data['genres'])
+            movie.genres.set(genres)
+
             if created:
-                genres = Genre.objects.filter(name__in=data['genres'])
-                movie.genres.set(genres)
                 self.stdout.write(f'  Created movie: {data["title"]}')
+            else:
+                self.stdout.write(f'  Updated movie: {data["title"]}')
+
+    def _seed_cast(self):
+        for entry in CAST:
+            try:
+                movie = WatchList.objects.get(title=entry['movie'])
+            except WatchList.DoesNotExist:
+                self.stdout.write(self.style.WARNING(f'  Movie not found: {entry["movie"]}, skipping cast'))
+                continue
+
+            for credit_data in entry['credits']:
+                person, _ = Person.objects.get_or_create(name=credit_data['name'])
+                _, created = Credit.objects.get_or_create(
+                    person=person,
+                    watchlist=movie,
+                    role=credit_data['role'],
+                    character_name=credit_data['character_name'],
+                    defaults={'order': credit_data['order']}
+                )
+                if created:
+                    self.stdout.write(f'    Added {credit_data["role"]}: {credit_data["name"]} → {entry["movie"]}')
