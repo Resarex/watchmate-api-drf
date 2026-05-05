@@ -29,25 +29,20 @@ def registeration_view(request):
     """
     Register new user and return JWT tokens
     """
-    if request.method == 'POST':
-        serializer = RegisterationSerializer(data=request.data)
-        data = {}
-        
-        if serializer.is_valid():
-            account = serializer.save()
+    serializer = RegisterationSerializer(data=request.data)
 
-            data['response'] = "Registration Successful!"
-            data['username'] = account.username
-            data['email'] = account.email
-
-            # Generate JWT tokens
-            refresh = RefreshToken.for_user(account)
-            data['tokens'] = {
+    if serializer.is_valid():
+        account = serializer.save()
+        refresh = RefreshToken.for_user(account)
+        return Response({
+            'response': "Registration Successful!",
+            'username': account.username,
+            'email': account.email,
+            'tokens': {
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             }
-        else:
-            data = serializer.errors
+        }, status=status.HTTP_201_CREATED)
 
-        return Response(data, status=status.HTTP_201_CREATED if serializer.is_valid() else status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

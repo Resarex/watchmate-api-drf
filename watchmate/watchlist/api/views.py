@@ -300,10 +300,6 @@ class CreditListCreateView(generics.ListCreateAPIView):
 # TRENDING & STATISTICS VIEWS
 # ============================================
 
-from django.utils import timezone
-from datetime import timedelta
-from django.db.models import Count, Avg, Q
-
 class TrendingMoviesView(generics.ListAPIView):
     """Get trending movies (most reviewed in last 7 days)"""
     serializer_class = serializers.WatchListSerializer
